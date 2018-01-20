@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <groupId>org.renjin.cran</groupId>
+  <artifactId>httpuv</artifactId>
+  <version>0.9-SNAPSHOT</version>
+
+  <properties>
+    <renjin.version>1.0.0-SNAPSHOT</renjin.version>
+    <jetty.version>9.4.8.v20171121</jetty.version>
+    <maven.compiler.source>1.8</maven.compiler.source>
+    <maven.compiler.target>1.8</maven.compiler.target>
+  </properties>
+  <repositories>
+    <repository>
+      <id>bedatadriven-public</id>
+      <url>
+        http://nexus.bedatadriven.com/content/groups/public/
+      </url>
+    </repository>
+  </repositories>
+  <pluginRepositories>
+    <pluginRepository>
+      <id>bedatadriven-public</id>
+      <url>
+        http://nexus.bedatadriven.com/content/groups/public/
+      </url>
+    </pluginRepository>
+  </pluginRepositories>
+
+  <distributionManagement>
+    <repository>
+      <id>renjin-packages</id>
+      <name>Renjin CI Repository</name>
+      <url>http://nexus.bedatadriven.com/content/repositories/renjin-packages</url>
+    </repository>
+  </distributionManagement>
+  
+  <dependencies>
+    <dependency>
+      <groupId>org.renjin</groupId>
+      <artifactId>renjin-core</artifactId>
+      <version>${renjin.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.renjin</groupId>
+      <artifactId>methods</artifactId>
+      <version>${renjin.version}</version>
+    </dependency>
+
+    <dependency>
+      <groupId>org.eclipse.jetty</groupId>
+      <artifactId>jetty-server</artifactId>
+      <version>${jetty.version}</version>
+    </dependency>
+
+    <dependency>
+      <groupId>org.renjin</groupId>
+      <artifactId>hamcrest</artifactId>
+      <version>${renjin.version}</version>
+      <scope>test</scope>
+    </dependency>
+  </dependencies>
+
+  <build>
+    <sourceDirectory>${basedir}/renjin</sourceDirectory>
+    <plugins>
+      <plugin>
+        <groupId>org.renjin</groupId>
+        <artifactId>renjin-maven-plugin</artifactId>
+        <version>${renjin.version}</version>
+        <configuration>
+          <sourceDirectory>${basedir}/R</sourceDirectory>
+          <defaultPackages>
+            <defaultPackage>stats</defaultPackage>
+            <defaultPackage>methods</defaultPackage>
+          </defaultPackages>
+        </configuration>
+        <executions>
+          <execution>
+            <id>build</id>
+            <goals>
+              <goal>namespace-compile</goal>
+            </goals>
+            <phase>process-classes</phase>
+          </execution>
+          <execution>
+            <id>test</id>
+            <goals>
+              <goal>test</goal>
+            </goals>
+            <phase>test</phase>
+          </execution>
+        </executions>
+      </plugin>
+    </plugins>
+  </build>
+</project>
