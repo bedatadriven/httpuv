@@ -42,7 +42,7 @@ public class RequestHandler extends AbstractHandler {
     frame.setVariable(SERVER_NAME, StringVector.valueOf(httpRequest.getServerName()));
     frame.setVariable(REQUEST_METHOD, StringVector.valueOf(httpRequest.getMethod()));
 
-    Environment req = Environment.createChildEnvironment(Environment.EMPTY, frame).build();
+    Environment req = Environment.createChildEnvironment(Environment.EMPTY, frame);
 
     // Pass the request object to the handler function
     // We need to ensure that we only execute one function call concurrently

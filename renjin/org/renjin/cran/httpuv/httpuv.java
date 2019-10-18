@@ -1,6 +1,9 @@
 package org.renjin.cran.httpuv;
 
 import org.eclipse.jetty.server.Server;
+import org.eclipse.jetty.websocket.server.WebSocketHandler;
+import org.eclipse.jetty.websocket.server.WebSocketUpgradeHandlerWrapper;
+import org.eclipse.jetty.websocket.servlet.WebSocketServletFactory;
 import org.renjin.eval.EvalException;
 import org.renjin.primitives.Native;
 import org.renjin.primitives.packaging.DllInfo;
@@ -53,6 +56,13 @@ public class httpuv {
         (Function)onHeadersSEXP,
         (Function)onBodyDataSEXP,
         (Function)onRequestSEXP));
+
+    server.setHandler(new WebSocketHandler() {
+      @Override
+      public void configure(WebSocketServletFactory factory) {
+        throw new UnsupportedOperationException("TODO");
+      }
+    });
 
     server.start();
     server.join();

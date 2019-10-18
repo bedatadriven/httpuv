@@ -1,0 +1,19 @@
+
+
+plugins {
+    id 'org.renjin.package'
+}
+
+group = 'org.renjin.cran'
+
+renjin {
+    renjinVersion = '3.5-beta61'
+}
+
+def jettyVersion = '9.4.8.v20171121'
+
+dependencies {
+    compile "org.eclipse.jetty:jetty-server:${jettyVersion}"
+    compile "org.eclipse.jetty.websocket:websocket-server:${jettyVersion}"
+    compile "org.renjin:renjin-core:${renjin.renjinVersion.get()}"
+}
